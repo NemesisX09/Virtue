@@ -50,7 +50,7 @@ int main () {
       while(getline(newfile, tp)){
          cout << tp << "\n"; 
          string w ("Main.print(\"skjdh\");");
-         if(std::strcmp(w.c_str(),tp.c_str()) == 0){
+         if(std::strcmp(w.c_str(),tp.c_str()) >= 0){
           size_t i = tp.find_first_of(".");
           string library(tp.substr(0, i));
           string fpi(tp.substr(i));
@@ -64,6 +64,7 @@ int main () {
           string function (fpi.substr(0,i));
           cout << library << "," << function << ", and " << input << "\n";
          }
+         cout<< std::strcmp(w.c_str(),tp.c_str());
       }
       newfile.close();
    }
