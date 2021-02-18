@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <climits>
+#include <vector>
 using namespace std;
 
 std::string string_replace(const std::string& str, const std::string& match, 
@@ -20,37 +21,28 @@ std::string string_replace(const std::string& str, const std::string& match,
     return newstr;
 }
 
-bool CheckSubstring(std::string firstString, std::string secondString){
-    if(secondString.size() > firstString.size())
-        return false;
-
-    for (int i = 0; i < firstString.size(); i++){
-        int j = 0;
-        // If the first characters match
-        if(firstString[i] == secondString[j]){
-            int k = i;
-            while (firstString[i] == secondString[j] && j < secondString.size()){
-                j++;
-                i++;
-            }
-            if (j == secondString.size())
-                return true;
-            else // Re-initialize i to its original value
-                i = k;
-        }
-    }
-    return false;
-}
-
 int main () {
-  fstream newfile;
+	fstream newfile;
+	vector <string> lib;
+	/*
+  newfile.open("libs.txt",ios::in);
+   if (newfile.is_open()){
+      string tp;
+      while(getline(newfile, tp)){
+         cout << tp << "\n"; 
+				 lib.push_back(tp);
+      }
+      newfile.close();
+   }
+	 */
   newfile.open("code.txt",ios::in);
    if (newfile.is_open()){
       string tp;
       while(getline(newfile, tp)){
          cout << tp << "\n"; 
-         string w ("Main.print(\"skjdh\");");
-         if(std::strcmp(w.c_str(),tp.c_str()) >= 0){
+         string f ("%s.%s(%s);");
+				 string df ("function %s() {");
+         if(std::strcmp(f.c_str(),tp.c_str()) >= 0){
           size_t i = tp.find_first_of(".");
           string library(tp.substr(0, i));
           string fpi(tp.substr(i));
@@ -62,9 +54,10 @@ int main () {
           input = string_replace(input,")","",UINT_MAX);
           input = string_replace(input,";","",UINT_MAX);
           string function (fpi.substr(0,i));
-          cout << library << "," << function << ", and " << input << "\n";
-         }
-         cout<< std::strcmp(w.c_str(),tp.c_str());
+          cout << library << ", " << function << ", and " << input << "\n";
+        }else if(std::strcmp(df.c_str(),tp.c_str()) >= 0) {
+					cout << "func dec.\n";
+				}
       }
       newfile.close();
    }
