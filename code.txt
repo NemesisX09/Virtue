@@ -2,4 +2,5 @@ import Main;
 
 function main() {
 	Main.println("skjdh");
-}
+	int e = 0;
+}	

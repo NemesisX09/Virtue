@@ -33,6 +33,7 @@ int main () {
 			string df ("function %s() {");
 			string ef ("}");
 			string il ("import %s;");
+			string dv ("%s %s = $s;");
       while(getline(newfile, tp)){
 				 if(std::strcmp("",tp.c_str()) != 0){
 					 if(std::strcmp(f.c_str(),tp.c_str()) >= 0){
@@ -48,19 +49,21 @@ int main () {
 						input = string_replace(input,")","",UINT_MAX);
 						input = string_replace(input,";","",UINT_MAX);
 						outfile << "\t" << function << "(\"" << input << "\");\n";
-					}else if (std::strcmp(ef.c_str(),tp.c_str()) == 0) {
+					} else if (std::strcmp(ef.c_str(),tp.c_str()) == 0) {
 						outfile << "}";
-					} else if(std::strcmp(il.c_str(),tp.c_str()) <= 0){
+					} else if (std::strcmp(il.c_str(),tp.c_str()) <= 0){
 						string libraryps (string_replace(tp.c_str(),"import ","",UINT_MAX));
 						string library (string_replace(libraryps,";","",UINT_MAX));
 						outfile << "#include \"" << library << ".cpp\"\n";
-					} else if(std::strcmp(df.c_str(),tp.c_str()) <= 0) {
+					} else if (std::strcmp(df.c_str(),tp.c_str()) <= 0) {
 						string fnpp (string_replace(tp.c_str(),"function ","",UINT_MAX));
 						string fnp (string_replace(fnpp,"(","",UINT_MAX));
 						string fn (string_replace(fnp,")","",UINT_MAX));
 						string f (string_replace(fn,"{","",UINT_MAX));
 						string rf (string_replace(f," ","",UINT_MAX));
 						outfile << "int " << rf.c_str() << "() {\n\n";
+					} else if (std::strcmp(dv.c_str(), tp.c_str()) <=0) {
+						cout << "declare var\n";
 					}
 				 }
       }
