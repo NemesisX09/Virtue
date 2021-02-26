@@ -1,5 +1,5 @@
 import Main;
 
 function main() {
-	Main.print("skjdh");
+	Main.println("skjdh");
 }

@@ -41,12 +41,12 @@ int main () {
 						string fpi(tp.substr(i));
 						fpi = string_replace(fpi,".","",UINT_MAX);
 						size_t e = fpi.find_first_of("(");
-						string input (fpi.substr(i));
+						string function (fpi.substr(0,e));
+						string input (fpi.substr(e));
 						input = string_replace(input,"\"","",UINT_MAX);
 						input = string_replace(input,"(","",UINT_MAX);
 						input = string_replace(input,")","",UINT_MAX);
 						input = string_replace(input,";","",UINT_MAX);
-						string function (fpi.substr(0,i));
 						outfile << "\t" << function << "(\"" << input << "\");\n";
 					}else if (std::strcmp(ef.c_str(),tp.c_str()) == 0) {
 						outfile << "}";
@@ -68,5 +68,8 @@ int main () {
    }
 	std::system("clang++-7 -pthread -std=c++17 -o output output.cpp");
 	std::system("./output");
+	std::ofstream ofs;
+	ofs.open("output.cpp", std::ofstream::out | std::ofstream::trunc);
+	ofs.close();
   return 0;
 }
