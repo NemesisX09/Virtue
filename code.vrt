@@ -1,4 +1,5 @@
 import Main;
+impdef cstring;
 
 function main() {
 	Main.println("skjdh");
