@@ -1,7 +1,5 @@
 import Main;
-impdef cstring;
 
-function main() {
+function run() {
 	Main.println("skjdh");
-	int e = 0;
-}	
+}

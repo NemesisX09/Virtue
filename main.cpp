@@ -31,8 +31,10 @@ int main () {
       string tp;
 			string f ("%s.%s(%s);");
 			string df ("function %s() {");
+			string ef ("}");
 			string il ("import %s;");
-			string idl ("impdef %s;");
+			string idl ("imdef %s;");
+			string dv ("%s %s = $s;");
       while(getline(newfile, tp)){
 				 if(std::strcmp("",tp.c_str()) != 0){
 					 if(std::strcmp(f.c_str(),tp.c_str()) >= 0){
@@ -48,6 +50,8 @@ int main () {
 						input = string_replace(input,")","",UINT_MAX);
 						input = string_replace(input,";","",UINT_MAX);
 						outfile << "\t" << function << "(\"" << input << "\");\n";
+					} else if (std::strcmp(ef.c_str(),tp.c_str()) == 0) {
+						outfile << "}";
 					} else if (std::strcmp(il.c_str(),tp.c_str()) <= 0){
 						string libraryps (string_replace(tp.c_str(),"import ","",UINT_MAX));
 						string library (string_replace(libraryps,";","",UINT_MAX));
@@ -58,18 +62,24 @@ int main () {
 						string fn (string_replace(fnp,")","",UINT_MAX));
 						string f (string_replace(fn,"{","",UINT_MAX));
 						string rf (string_replace(f," ","",UINT_MAX));
-						outfile << "int " << rf.c_str() << "() {\n\n";
+						outfile << "int " << rf.c_str() << "() {\n";
+					} else if (std::strcmp(dv.c_str(), tp.c_str()) <=0) {
+						cout << "declare var\n";
 					} else {
-						outfile << tp.c_str();
+						outfile << tp;
 					}
 				 }
       }
+			outfile << "\nint main(){\n\trun();\n}";
       newfile.close();
    }
+	/*
 	std::system("clang++-7 -pthread -std=c++17 -o output output.cpp");
+	
 	std::system("./output");
 	std::ofstream ofs;
 	ofs.open("output.cpp", std::ofstream::out | std::ofstream::trunc);
 	ofs.close();
+	*/
   return 0;
 }
